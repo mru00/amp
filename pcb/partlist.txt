@@ -1,0 +1,47 @@
+Partlist
+
+Exported from amp.sch at 7/21/10 7:31 PM
+
+EAGLE Version 5.7.0 Copyright (c) 1988-2010 CadSoft
+
+Part        Value          Device          Package      Library                         Sheet
+
+CI1         68u            CPOL-EUE2.5-6   E2,5-6       resistor                        1
+CI2         68u            CPOL-EUE2.5-6   E2,5-6       resistor                        1
+CIN1        1u             C-EU075-032X103 C075-032X103 resistor                        1
+CIN2        1u             C-EU075-042X103 C075-042X103 resistor                        1
+CN1         15p            C-EU025-040X050 C025-040X050 resistor                        1
+CN2         15p            C-EU025-040X050 C025-040X050 resistor                        1
+CONN_A                     PINHD-1X2       1X02         pinhead                         1
+CONN_B                     PINHD-1X2       1X02         pinhead                         1
+CS1         u1             C-EU025-030X050 C025-030X050 resistor                        1
+CS2         u1             C-EU025-030X050 C025-030X050 resistor                        1
+CS3         u1             C-EU025-030X050 C025-030X050 resistor                        1
+CS4         10u            CPOL-EUE2.5-6   E2,5-6       resistor                        1
+CS5         10u            CPOL-EUE2.5-6   E2,5-6       resistor                        1
+CS6         10u            CPOL-EUE2.5-7   E2,5-7       resistor                        1
+CS7         1000u          CPOL-EUE7.5-16  E7,5-16      resistor                        1
+CS8         1000u          CPOL-EUE7.5-16  E7,5-16      resistor                        1
+CSN1        u1             C-EU025-030X050 C025-030X050 resistor                        1
+CSN2        u1             C-EU025-030X050 C025-030X050 resistor                        1
+JP_OUT_A_+                 PINHD-1X1       1X01         pinhead                         1
+JP_OUT_A_-                 PINHD-1X1       1X01         pinhead                         1
+JP_OUT_B_+                 PINHD-1X1       1X01         pinhead                         1
+JP_OUT_B_-                 PINHD-1X1       1X01         pinhead                         1
+JP_SUPP_GND                PINHD-1X1       1X01         pinhead                         1
+JP_SUPP_V+                 PINHD-1X1       1X01         pinhead                         1
+JP_SUPP_V-                 PINHD-1X1       1X01         pinhead                         1
+MUTE                       PINHD-1X3       1X03         pinhead                         1
+RB1         1k             R-EU_0204/7     0204/7       resistor                        1
+RB2         1k             R-EU_0204/7     0204/7       resistor                        1
+RF1         20k            R-EU_0204/7     0204/7       resistor                        1
+RF2         20k            R-EU_0204/7     0204/7       resistor                        1
+RG                         R-EU_0204/7     0204/7       resistor                        1
+RI1         1k             R-EU_0204/7     0204/7       resistor                        1
+RI2         1k             R-EU_0204/7     0204/7       resistor                        1
+RIN1        15k            R-EU_0207/7     0207/7       resistor                        1
+RIN2        15k            R-EU_0204/7     0204/7       resistor                        1
+RM          10k            R-EU_0204/5     0204/5       resistor                        1
+RSN1        2r7            R-EU_0204/5     0204/5       resistor                        1
+RSN2        2r7            R-EU_0204/5     0204/5       resistor                        1
+U$1                        LM4780TA        TO-220_27    national-semiconductor-lm4780TA 1

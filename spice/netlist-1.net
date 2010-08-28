@@ -1,0 +1,19 @@
+/home/mru/dev/08amp/spice/power-sim.oregano
+*----------------------------------------------
+*	GNUCAP - NETLIST
+.options OUT=120
+
+*------------- Models -------------------------
+.include /usr/share/oregano/models/DiodeBridge.model
+*------------- Circuit Description-------------
+.include power-sim.net
+*----------------------------------------------
+.print tran v(1)
+.tran 100m 100.0 0.0
+
+.OPTIONS NOPAGE VMAX=40.00 VMIN=-40.00
+*.PRINT TR V(C_C1) V(C_C2) V(C_C3) V(R_R1) V(R_R3) V(R_R4) V(R_R5) V(V_V1) V(1) V(2) V(3) V(4) V(5)
+*.GENERATOR AMP=30.00 OFFSET=0.00 FREQ=50.00 PHASE=0.00
+*.TR 0.00 70.00 10.00m TE 27.00 BASIC
+
+.end
