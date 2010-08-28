@@ -145,8 +145,9 @@ int main(void)
   /* main loop section ---------------------------------- */
 
   int run = 0;
-  int a_was_high = 0;
+  int a_was_high = 1;
   int p_was_high = 0;
+  int ui_return_time = 0;
 
   int ui_mode = ui_volume;
   int cmd = cmd_nop;
@@ -184,9 +185,9 @@ int main(void)
       /* } */
 
       switch (irmp_data.command) {
-      case REMOTE_MUTE:    break;
-      case REMOTE_VOLUP:   vol_up();   break;
-      case REMOTE_VOLDOWN: vol_down(); break;
+      case REMOTE_MUTE:                   break;
+      case REMOTE_VOLUP:   vol_up();      break;
+      case REMOTE_VOLDOWN: vol_down();    break;
 
       case REMOTE_CHUP:   cmd = cmd_up;   break;
       case REMOTE_CHDOWN: cmd = cmd_down; break;
@@ -197,21 +198,18 @@ int main(void)
 		}
 		break;
       }
-
-      /* uart_putc('\n'); */
     }
 
 
     /********** debug */
 
-
     if ( run == 500 ) {
       run = 0;
       if ( PINB & _BV(PB0) ) PORTB &= ~ _BV(PB0);
       else PORTB |= _BV(PB0);
-      //      uart_puts(".");
-    }
 
+	  if ( ui_return_time > 0 ) ui_return_time ++;
+    }
 
     /********** button */
 
@@ -219,7 +217,6 @@ int main(void)
 #define A_HIGH ( PINB & _BV(PB1) )
 #define B_HIGH ( PINB & _BV(PB2) )
 #define P_HIGH ( PINC & _BV(PC0) )
-
 
 
     if ( A_HIGH ) {
@@ -241,7 +238,6 @@ int main(void)
     if ( !P_HIGH ) {
       if (p_was_high == 0) {
         cmd = cmd_ui_next;
-        uart_puts("p");
       }
       p_was_high = 1;
     }
@@ -250,48 +246,60 @@ int main(void)
     }
 
 
-    if ( cmd == cmd_ui_next ) {
-      switch(ui_mode) {
-      case ui_volume: ui_mode = ui_treble; uart_puts("ui_mode: treble\n"); break;
-      case ui_treble: ui_mode = ui_bass;   uart_puts("ui_mode: bass\n"); break;
-      case ui_bass:   ui_mode = ui_gain;   uart_puts("ui_mode: gain\n"); break;
-      case ui_gain:   ui_mode = ui_volume; uart_puts("ui_mode: volume\n"); break;
-      }
-    }
-    else {
+    /********** react on input */
+
+
+	switch(cmd) {
+	case cmd_ui_next:
+		ui_return_time = 1;
 
       switch(ui_mode) {
-      case ui_volume:
-        switch(cmd) {
-        case cmd_up:   vol_up();  break;
-        case cmd_down: vol_down(); break;
-        }
-        break;
-
-      case ui_treble:
-        switch(cmd) {
-        case cmd_up:   treble_up();  break;
-        case cmd_down: treble_down(); break;
-        }
-        break;
-
-      case ui_bass:
-        switch(cmd) {
-        case cmd_up:   bass_up();  break;
-        case cmd_down: bass_down(); break;
-        }
-        break;
-
-      case ui_gain:
-        switch(cmd) {
-        case cmd_up:   gain_up();  break;
-        case cmd_down: gain_down(); break;
-        }
-        break;
-
+      case ui_volume: 
+		ui_mode = ui_treble; 
+		uart_puts("ui_mode: treble\n"); 
+		break;
+      case ui_treble: 
+		ui_mode = ui_bass;   
+		uart_puts("ui_mode: bass\n"); 
+		break;
+      case ui_bass:   
+		ui_mode = ui_gain;   
+		uart_puts("ui_mode: gain\n"); 
+		break;
+      case ui_gain:   
+		ui_mode = ui_volume; 
+		uart_puts("ui_mode: volume\n"); 
+		break;
       }
+	  break;
+
+	case cmd_up:
+      switch(ui_mode) {
+      case ui_volume: vol_up();    break;
+      case ui_treble: treble_up(); break;
+      case ui_bass:   bass_up();   break;
+      case ui_gain:   gain_up();   break;
+      }
+	  break;
+
+	case cmd_down:
+      switch(ui_mode) {
+      case ui_volume: vol_down();    break;
+      case ui_treble: treble_down(); break;
+      case ui_bass:   bass_down();   break;
+      case ui_gain:   gain_down();   break;
+      }
+	  break;
+
     }
 
+	if ( ui_mode != ui_volume && ui_return_time > 70 ) {
+	  ui_mode = ui_volume;
+	  uart_puts("ui_mode: volume (autoreturn)\n");
+	  ui_return_time = 0;
+	}
+
+	
     _delay_us(100);
   }
 }
