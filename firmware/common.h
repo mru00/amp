@@ -85,5 +85,6 @@ struct port_pin_t {
 #include "tda7449.h"
 #include "version.h"
 #include "build-id.h"
+#include "irmpconfig.h"
 #include "irmp.h"
 

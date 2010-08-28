@@ -319,6 +319,8 @@ typedef unsigned int16  uint16_t;
 #include <util/delay.h>
 #include <avr/pgmspace.h>
 
+#include "uart.h"
+
 #endif  // PIC_CCS_COMPILER
 #endif  // CODEVISION
 
@@ -584,46 +586,7 @@ static int      verbose;
 #endif
 
 #if IRMP_LOGGING == 1
-#define BAUD                                    9600L
-#include <util/setbaud.h>
 
-#ifdef UBRR0H
-
-#define UART0_UBRRH                             UBRR0H
-#define UART0_UBRRL                             UBRR0L
-#define UART0_UCSRA                             UCSR0A
-#define UART0_UCSRB                             UCSR0B
-#define UART0_UCSRC                             UCSR0C
-#define UART0_UDRE_BIT_VALUE                    (1<<UDRE0)
-#define UART0_UCSZ1_BIT_VALUE                   (1<<UCSZ01)
-#define UART0_UCSZ0_BIT_VALUE                   (1<<UCSZ00)
-#ifdef URSEL0
-#define UART0_URSEL_BIT_VALUE                   (1<<URSEL0)
-#else
-#define UART0_URSEL_BIT_VALUE                   (0)
-#endif
-#define UART0_TXEN_BIT_VALUE                    (1<<TXEN0)
-#define UART0_UDR                               UDR0
-
-#else
-
-#define UART0_UBRRH                             UBRRH
-#define UART0_UBRRL                             UBRRL
-#define UART0_UCSRA                             UCSRA
-#define UART0_UCSRB                             UCSRB
-#define UART0_UCSRC                             UCSRC
-#define UART0_UDRE_BIT_VALUE                    (1<<UDRE)
-#define UART0_UCSZ1_BIT_VALUE                   (1<<UCSZ1)
-#define UART0_UCSZ0_BIT_VALUE                   (1<<UCSZ0)
-#ifdef URSEL
-#define UART0_URSEL_BIT_VALUE                   (1<<URSEL)
-#else
-#define UART0_URSEL_BIT_VALUE                   (0)
-#endif
-#define UART0_TXEN_BIT_VALUE                    (1<<TXEN)
-#define UART0_UDR                               UDR
-
-#endif
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
  *  Initialize  UART
@@ -633,17 +596,6 @@ static int      verbose;
 void
 irmp_uart_init (void)
 {
-    UART0_UBRRH = UBRRH_VALUE;                                                                      // set baud rate
-    UART0_UBRRL = UBRRL_VALUE;
-
-#if USE_2X
-    UART0_UCSRA |= (1<<U2X);
-#else
-    UART0_UCSRA &= ~(1<<U2X);
-#endif
-
-    UART0_UCSRC = UART0_UCSZ1_BIT_VALUE | UART0_UCSZ0_BIT_VALUE | UART0_URSEL_BIT_VALUE;
-    UART0_UCSRB |= UART0_TXEN_BIT_VALUE;                                                            // enable UART TX
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -655,12 +607,7 @@ irmp_uart_init (void)
 void
 irmp_uart_putc (unsigned char ch)
 {
-    while (!(UART0_UCSRA & UART0_UDRE_BIT_VALUE))
-    {
-        ;
-    }
-
-    UART0_UDR = ch;
+  uart_putc(ch);
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------

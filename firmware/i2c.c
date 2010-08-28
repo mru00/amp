@@ -91,8 +91,13 @@ void i2c_init(void) {
   // does not work good
   DDRC &= ~( _BV(PC5) | _BV(PC4) );
   PORTC |= _BV(PC5) | _BV(PC4);
+
+# ifdef I2C_DEBUG
   uart_puts(" using internal pullup");
+# endif
+
 #endif
+
 
   // enable TWI
   TWCR = _BV(TWEN) | _BV(TWIE);
