@@ -31,7 +31,7 @@
 
 
 #define VOLUME_MAX  0x00
-#define VOLUME_MIN  0x21
+#define VOLUME_MIN  0x2f
 #define VOLUME_MUTE 0x38
 #define VOLUME_NOM  0x13
 

@@ -26,7 +26,7 @@ MCU = atmega8
 MCU_DUDE = m8
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = main.c uart.c i2c.c tda7449.c itoa.c irmp.c 
+SRC = main.c uart.c i2c.c tda7449.c itoa.c irmp.c hd4478.c
 
 RELEASE_DIR = ../releases
 BUILD_ID_FILE = build-id.h

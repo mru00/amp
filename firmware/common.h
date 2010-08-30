@@ -55,7 +55,7 @@ struct port_pin_t {
 
 //#define I2C_DEBUG
 #define I2C_USE_INTERNAL_PULLUP
-//#define INIT_DEBUG
+#define INIT_DEBUG
 
 
 
@@ -87,4 +87,6 @@ struct port_pin_t {
 #include "build-id.h"
 #include "irmpconfig.h"
 #include "irmp.h"
+#include "portmap.h"
+#include "hd4478.h"
 
